@@ -1,4 +1,4 @@
-FROM ubuntu:22.04
+FROM ubuntu:20.04
 
 RUN set -ex && \
     echo 'Yes, do as I say!'|apt install libtinfo5 && \
