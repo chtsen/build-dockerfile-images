@@ -39,16 +39,17 @@ jobs:
         id: dockerfiles
         run: |
           if [ -z "${{ github.event.inputs.directory }}" ]; then
-            files=$(find . -name 'Dockerfile')
+            files=$(find . -name 'Dockerfile' -print)
           else
-            files=$(find "${{ github.event.inputs.directory }}" -name 'Dockerfile')
+            files=$(find "${{ github.event.inputs.directory }}" -name 'Dockerfile' -print)
           fi
-          echo "files=$files" >> $GITHUB_ENV
+          files=$(echo "$files" | tr '\n' ' ')
+          echo "::set-output name=files::$files"
 
       - name: Build and Push Docker images
         run: |
-          IFS=$'\n'
-          for file in ${{ env.files }}; do
+          IFS=' ' read -r -a files <<< "${{ steps.dockerfiles.outputs.files }}"
+          for file in "${files[@]}"; do
             if [ -f "$file" ]; then
               dir=$(dirname "$file")
               image_name=$(basename "$dir")
@@ -69,5 +70,3 @@ jobs:
               echo "Dockerfile $file not found, skipping."
             fi
           done
-        env:
-          files: ${{ env.files }}
