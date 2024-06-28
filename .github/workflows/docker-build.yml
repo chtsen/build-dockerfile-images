@@ -15,7 +15,7 @@ on:
 
 env:
   DOCKER_REGISTRY: registry.cn-hangzhou.aliyuncs.com
-  DOCKER_ORG: myorg
+  DOCKER_ORG: chtsen-sysnc
 
 jobs:
   build:
