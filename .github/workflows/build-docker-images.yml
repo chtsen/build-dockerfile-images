@@ -45,26 +45,19 @@ jobs:
           fi
           echo "files=$files" >> $GITHUB_ENV
 
-      - name: Generate Docker tags
-        id: tags
+      - name: Build and Push Docker images
         run: |
-          tags=""
           for file in ${{ env.files }}; do
             if [ -f "$file" ]; then
               dir=$(dirname $file)
               image_name=$(basename $dir)
               tag="${{ env.DOCKER_REGISTRY }}/${{ env.DOCKER_ORG }}/${image_name}:latest"
-              tags="${tags},${tag}"
+
+              echo "Building Docker image for $file"
+              docker buildx build --platform ${{ github.event.inputs.platforms || 'linux/amd64,linux/arm64' }} --push -t $tag $dir
+            else
+              echo "Dockerfile $file not found, skipping."
             fi
           done
-          echo "tags=${tags#,}" >> $GITHUB_ENV
-
-      - name: Build and Push Docker images
-        uses: docker/build-push-action@v4
-        with:
-          context: ${{ github.workspace }}
-          push: true
-          platforms: ${{ github.event.inputs.platforms || 'linux/amd64,linux/arm64' }}
-          tags: ${{ env.tags }}
         env:
           files: ${{ env.files }}
