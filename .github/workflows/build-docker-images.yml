@@ -53,7 +53,7 @@ jobs:
               image_name=$(basename "$dir")
               
               # Extract the tag from the FROM line in the Dockerfile
-              from_tag=$(grep '^FROM' "$file" | awk '{print $2}' | head -n 1)
+              from_tag=$(grep '^FROM' "$file" | awk -F':' '{print $NF}' | head -n 1)
 
               if [ -z "$from_tag" ]; then
                 echo "No FROM tag found in $file, skipping."
