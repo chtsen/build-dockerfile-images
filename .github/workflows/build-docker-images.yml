@@ -41,12 +41,13 @@ jobs:
           if [ -z "${{ github.event.inputs.directory }}" ]; then
             files=$(find . -name 'Dockerfile')
           else
-            files=${{ github.event.inputs.directory }}/Dockerfile
+            files=$(find "${{ github.event.inputs.directory }}" -name 'Dockerfile')
           fi
           echo "files=$files" >> $GITHUB_ENV
 
       - name: Build and Push Docker images
         run: |
+          IFS=$'\n'
           for file in ${{ env.files }}; do
             if [ -f "$file" ]; then
               dir=$(dirname "$file")
