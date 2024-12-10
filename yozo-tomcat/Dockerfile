@@ -2,7 +2,7 @@ FROM alpine:3.18.3   AS go_build
 
 WORKDIR /opt/yozo/workdir
 
-COPY ../tools/golang/gotpl.go .
+COPY ../../tools/golang/gotpl.go .
 
 RUN set -ex && \
     # sed -i 's/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g' /etc/apk/repositories && \
