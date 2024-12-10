@@ -17,7 +17,7 @@ FROM tomcat:9.0.97-jdk8-temurin-jammy
 LABEL maintainer="Chtsen cyc@yozosoft.com"
 
 #COPY sources.list /etc/apt/sources.list
-COPY ./tools/tpl/tomcat/server.xml.tpl /usr/local/tomcat/conf/
+COPY ./tools/tpl/yozo-tomcat/server.xml.tpl /usr/local/tomcat/conf/
 COPY --from=go_build /opt/yozo/workdir/gotpl /opt/yozo/bin/
 
 ARG TARGETARCH
