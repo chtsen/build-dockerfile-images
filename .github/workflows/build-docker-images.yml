@@ -52,6 +52,8 @@ jobs:
           for file in "${files[@]}"; do
             if [ -f "$file" ]; then
               dir=$(dirname "$file")
+              pwd
+              ls
               echo $dir
               image_name=$(basename "$dir")
               
