@@ -65,7 +65,7 @@ jobs:
               tag="${{ env.DOCKER_REGISTRY }}/${{ env.DOCKER_ORG }}/${image_name}:${from_tag}"
 
               echo "Building Docker image for $file with tag $tag"
-              docker buildx build --platform "${{ github.event.inputs.platforms || 'linux/amd64,linux/arm64' }}" --push -t "$tag" "$dir"
+              docker buildx build --platform "${{ github.event.inputs.platforms || 'linux/amd64,linux/arm64' }}" --push -t "$tag" -f "$dir"/Dockerfile
             else
               echo "Dockerfile $file not found, skipping."
             fi
