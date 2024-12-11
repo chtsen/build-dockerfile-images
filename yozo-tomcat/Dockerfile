@@ -19,6 +19,7 @@ COPY ./tools/tpl/yozo-tomcat/server.xml.tpl /usr/local/tomcat/conf/
 COPY --from=go_build /opt/yozo/workdir/gotpl /opt/yozo/bin/
 
 ARG TARGETARCH
+ARG TOMCAT_V
 
 ENV OS_ARCH="${TARGETARCH:-amd64}" \
     TOMCAT_V="${TOMCAT_V:-9.0.97}" \
