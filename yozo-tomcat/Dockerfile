@@ -23,6 +23,7 @@ COPY --from=go_build /opt/yozo/workdir/gotpl /opt/yozo/bin/
 ARG TARGETARCH
 
 ENV OS_ARCH="${TARGETARCH:-amd64}" \
+    TOMCAT_V="${TOMCAT_V:-9.0.97}" \
     TZ=Asia/Shanghai \
     APP_PORT=8080 \
     LANG=zh_CN.utf8 \
@@ -38,7 +39,7 @@ RUN set -ex && \
     apt update && \
     apt install sudo language-pack-zh-han* libxrender1 libxext6 libssl-dev -y && \
     echo "yozo ALL=(ALL)       NOPASSWD:ALL" >> /etc/sudoers && \
-    curl -u temp:releases@2022 -SsLf "https://releases.yozosoft.com:4431/fcs/tools/jdk/YOZO_Jre_${OS_ARCH}_1.8.0.tar.gz" -O  && \
+    curl -u temp:releases@2022 -SsLf -O "https://releases.yozosoft.com:4431/fcs/tools/jdk/YOZO_Jre_${OS_ARCH}_1.8.0.tar.gz" -O "https://releases.yozosoft.com:4431/fcs/tools/jdk/OpenJDK8U-jdk_${OS_ARCH}_linux_hotspot_8u402b06.tar.gz" -O "https://releases.yozosoft.com:4431/fcs/tools/tomcat/apache-tomcat-${TOMCAT_V}.tar.gz"  && \
     mkdir -p /opt/yozo/yozo_office_jre/  && \
     tar -zxf "YOZO_Jre_${OS_ARCH}_1.8.0.tar.gz" -C /opt/yozo/yozo_office_jre/ --no-same-owner && \
     rm -rf "YOZO_Jre_${OS_ARCH}_1.8.0.tar.gz"
