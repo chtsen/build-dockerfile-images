@@ -11,7 +11,7 @@ RUN set -ex && \
     go build -o gotpl . && \
     upx -9 gotpl 
 
-FROM debian:bookworm-20241202
+FROM ubuntu:jammy-20240911.1
 
 LABEL maintainer="Chtsen cyc@yozosoft.com"
 
