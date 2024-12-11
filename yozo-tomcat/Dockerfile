@@ -12,7 +12,7 @@ RUN set -ex && \
     go build -o gotpl . && \
     upx -9 gotpl 
 
-FROM tomcat:9.0.97-jdk8-temurin-jammy
+FROM debian:bookworm-20241202
 
 LABEL maintainer="Chtsen cyc@yozosoft.com"
 
