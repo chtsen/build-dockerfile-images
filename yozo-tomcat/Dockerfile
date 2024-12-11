@@ -42,7 +42,8 @@ RUN set -ex && \
     tar -xf "OpenJDK8U-jdk_${OS_ARCH}_linux_hotspot_8u402b06.tar.gz" -C /opt/yozo/open_jdk --strip-components=1 && \
     tar -xf "apache-tomcat-${TOMCAT_V}.tar.gz" -C /opt/yozo/fcscloud --strip-components=1 && \
     sed -i '125i\export JAVA_HOME=/opt/yozo/open_jdk' /opt/yozo/fcscloud/bin/catalina.sh && \
-    rm -rf *.tar.gz /opt/yozo/fcscloud/webapps/*
+    rm -rf *.tar.gz /opt/yozo/fcscloud/webapps/* && \
+    chown -R 1099.1099 /opt/yozo
     #echo "yozo ALL=(ALL)       NOPASSWD:/usr/bin/cat /sys/class/dmi/id/product_uuid,/bin/cat /sys/class/dmi/id/product_uuid" >> /etc/sudoers
 
 ENV TZ=Asia/Shanghai
