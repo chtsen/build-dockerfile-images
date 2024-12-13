@@ -17,7 +17,7 @@ LABEL maintainer="Chtsen cyc@yozosoft.com"
 
 COPY ./tools/tpl/yozo-tomcat/server.xml.tpl /usr/local/tomcat/conf/
 COPY --from=go_build /opt/yozo/workdir/gotpl /opt/yozo/bin/
-COPY ./tools/shell/entrypoint.sh /opt/yozo/bin/
+COPY ./tools/shell/yozo-tomcat/entrypoint.sh /opt/yozo/bin/
 
 ARG TARGETARCH
 ARG TOMCAT_V
