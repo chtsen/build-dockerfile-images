@@ -1,3 +1,3 @@
 #!/bin/bash
 
-catalina.sh run
+/opt/yozo/fcscloud/bin/catalina.sh run
