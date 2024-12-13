@@ -41,6 +41,7 @@ RUN set -ex && \
     useradd -m -g 1099 -u 1099 yozo && \
     apt update && \
     apt install sudo language-pack-zh-han* libxrender1 libxext6 libssl-dev curl libterm-readkey-perl openjdk-8-jdk -y && \
+    apt clean && \
     echo "yozo ALL=(ALL)       NOPASSWD:ALL" >> /etc/sudoers && \
     curl -u temp:releases@2022 -SsLf -O "https://releases.yozosoft.com:4431/fcs/tools/jdk/YOZO_Jre_${OS_ARCH}_${YOZO_JRE_V}.tar.gz" -O "https://releases.yozosoft.com:4431/fcs/tools/jdk/OpenJDK8U-jdk_${OS_ARCH}_linux_hotspot_${OPENJDK_V}.tar.gz" -O "https://releases.yozosoft.com:4431/fcs/tools/tomcat/apache-tomcat-${TOMCAT_V}.tar.gz"  && \
     mkdir -p /opt/yozo/yozo_office_jre/ /opt/yozo/open_jdk /opt/yozo/fcscloud  && \
@@ -48,7 +49,7 @@ RUN set -ex && \
     tar -xf "OpenJDK8U-jdk_${OS_ARCH}_linux_hotspot_${OPENJDK_V}.tar.gz" -C /opt/yozo/open_jdk --strip-components=1 && \
     tar -xf "apache-tomcat-${TOMCAT_V}.tar.gz" -C /opt/yozo/fcscloud --strip-components=1 && \
     sed -i '125i\export JAVA_HOME=/opt/yozo/open_jdk' /opt/yozo/fcscloud/bin/catalina.sh && \
-    rm -rf *.tar.gz /opt/yozo/fcscloud/webapps/* && \
+    rm -rf *.tar.gz /opt/yozo/fcscloud/webapps/* /var/lib/apt/lists/* && \
     chown -R 1099.1099 /opt/yozo && \
     chmod -R 755 /opt/yozo
     #echo "yozo ALL=(ALL)       NOPASSWD:/usr/bin/cat /sys/class/dmi/id/product_uuid,/bin/cat /sys/class/dmi/id/product_uuid" >> /etc/sudoers
