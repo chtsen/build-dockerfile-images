@@ -24,7 +24,8 @@ ARG TOMCAT_V
 ARG YOZO_JRE_V
 ARG OPENJDK_V
 
-ENV JAVA_HOME="/opt/yozo/open_jdk" \
+ENV DEBIAN_FRONTEND=noninteractive \
+    JAVA_HOME="/opt/yozo/open_jdk" \
     PATH="$JAVA_HOME/bin:$PATH" \
     OS_ARCH="${TARGETARCH:-amd64}" \
     TOMCAT_V="${TOMCAT_V:-9.0.97}" \
