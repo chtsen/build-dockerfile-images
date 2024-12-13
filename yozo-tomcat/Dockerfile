@@ -17,6 +17,7 @@ LABEL maintainer="Chtsen cyc@yozosoft.com"
 
 COPY ./tools/tpl/yozo-tomcat/server.xml.tpl /usr/local/tomcat/conf/
 COPY --from=go_build /opt/yozo/workdir/gotpl /opt/yozo/bin/
+COPY ./tools/shell/entrypoint.sh /opt/yozo/bin/
 
 ARG TARGETARCH
 ARG TOMCAT_V
@@ -50,4 +51,4 @@ RUN set -ex && \
     chown -R 1099.1099 /opt/yozo
     #echo "yozo ALL=(ALL)       NOPASSWD:/usr/bin/cat /sys/class/dmi/id/product_uuid,/bin/cat /sys/class/dmi/id/product_uuid" >> /etc/sudoers
 
-ENV TZ=Asia/Shanghai
+CMD ["sh","-c","/opt/yozo/bin/entrypoint.sh"]
