@@ -25,8 +25,6 @@ ARG YOZO_JRE_V
 ARG OPENJDK_V
 
 ENV DEBIAN_FRONTEND=noninteractive \
-    JAVA_HOME="/opt/yozo/open_jdk" \
-    PATH="$JAVA_HOME/bin:$PATH" \
     OS_ARCH="${TARGETARCH:-amd64}" \
     TOMCAT_V="${TOMCAT_V:-9.0.97}" \
     YOZO_JRE_V="${YOZO_JRE_V:-1.8.0}" \
@@ -42,7 +40,7 @@ RUN set -ex && \
     groupadd -g 1099 yozo && \
     useradd -m -g 1099 -u 1099 yozo && \
     apt update && \
-    apt install sudo language-pack-zh-han* libxrender1 libxext6 libssl-dev curl libterm-readkey-perl -y && \
+    apt install sudo language-pack-zh-han* libxrender1 libxext6 libssl-dev curl libterm-readkey-perl openjdk-8-jdk -y && \
     echo "yozo ALL=(ALL)       NOPASSWD:ALL" >> /etc/sudoers && \
     curl -u temp:releases@2022 -SsLf -O "https://releases.yozosoft.com:4431/fcs/tools/jdk/YOZO_Jre_${OS_ARCH}_${YOZO_JRE_V}.tar.gz" -O "https://releases.yozosoft.com:4431/fcs/tools/jdk/OpenJDK8U-jdk_${OS_ARCH}_linux_hotspot_${OPENJDK_V}.tar.gz" -O "https://releases.yozosoft.com:4431/fcs/tools/tomcat/apache-tomcat-${TOMCAT_V}.tar.gz"  && \
     mkdir -p /opt/yozo/yozo_office_jre/ /opt/yozo/open_jdk /opt/yozo/fcscloud  && \
