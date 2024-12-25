@@ -58,10 +58,10 @@ jobs:
               image_name=$(basename "$dir")
               
               # Extract the tag from the FROM line in the Dockerfile
-              if [ -z "${{ github.event.inputs.tag }}" ]; then
-                from_tag=${{ github.event.inputs.tag }}
-              else
+              if [ -z "${{ github.event.inputs.tag }}" ]; then           
                 from_tag=$(grep '^FROM' "$file" | awk -F':' '{print $NF}' | tail -n 1)
+              else
+                from_tag=${{ github.event.inputs.tag }}
               fi
               
               if [ -z "$from_tag" ]; then
