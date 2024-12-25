@@ -50,7 +50,7 @@ RUN set -ex && \
     tar -xf "apache-tomcat-${TOMCAT_V}.tar.gz" -C /opt/yozo/fcscloud --strip-components=1 && \
     sed -i '125i\export JAVA_HOME=/opt/yozo/open_jdk' /opt/yozo/fcscloud/bin/catalina.sh && \
     rm -rf *.tar.gz /opt/yozo/fcscloud/webapps/* /var/lib/apt/lists/* && \
-    chown -R 1099.1099 /opt/yozo && \
+    chown -R 1099:1099 /opt/yozo && \
     chmod -R 755 /opt/yozo
     #echo "yozo ALL=(ALL)       NOPASSWD:/usr/bin/cat /sys/class/dmi/id/product_uuid,/bin/cat /sys/class/dmi/id/product_uuid" >> /etc/sudoers
 
