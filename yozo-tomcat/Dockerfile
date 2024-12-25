@@ -26,7 +26,7 @@ ARG OPENJDK_V
 
 ENV DEBIAN_FRONTEND=noninteractive \
     OS_ARCH="${TARGETARCH:-amd64}" \
-    TOMCAT_V="${TOMCAT_V:-9.0.97}" \
+    TOMCAT_V="${TOMCAT_V:-9.0.98}" \
     YOZO_JRE_V="${YOZO_JRE_V:-1.8.0}" \
     OPENJDK_V="${OPENJDK_V:-8u402b06}" \
     TZ=Asia/Shanghai \
