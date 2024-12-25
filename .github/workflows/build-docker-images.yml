@@ -9,6 +9,9 @@ on:
       platforms:
         description: 'Platforms to build for (e.g., linux/amd64,linux/arm64)'
         required: false
+      tag:
+        description: 'Tag to build Docker image'
+        required: false
   pull_request:
     branches:
       - main
@@ -55,8 +58,12 @@ jobs:
               image_name=$(basename "$dir")
               
               # Extract the tag from the FROM line in the Dockerfile
-              from_tag=$(grep '^FROM' "$file" | awk -F':' '{print $NF}' | tail -n 1)
-
+              if [ -z "${{ github.event.inputs.directory }}" ]; then
+                from_tag=${{ github.event.inputs.directory }}
+              else
+                from_tag=$(grep '^FROM' "$file" | awk -F':' '{print $NF}' | tail -n 1)
+              fi
+              
               if [ -z "$from_tag" ]; then
                 echo "No FROM tag found in $file, skipping."
                 continue
